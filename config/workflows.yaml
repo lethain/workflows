@@ -1,0 +1,52 @@
+# Workflow configuration
+# Each workflow maps to a handler function and specifies which input types it handles
+
+workflows:
+  # Example email processor workflow
+  - name: email_processor
+    module: example_workflows.email
+    function: process_email
+    input_types:
+      - email
+    tools:
+      - fetch_url
+    skills:
+      required:
+        - email_response
+      allowed:
+        - web_search
+        - summarize
+      denied: []
+    enabled: true
+
+  # Example Slack notification workflow
+  - name: slack_notifier
+    module: example_workflows.notifications
+    function: handle_slack
+    input_types:
+      - slack
+    tools: []
+    skills:
+      required: []
+      allowed:
+        - summarize
+        - format_message
+      denied:
+        - admin_tools
+    enabled: true
+
+  # Example webhook processor
+  - name: webhook_handler
+    module: example_workflows.webhooks
+    function: process_webhook
+    input_types:
+      - webhook
+    tools:
+      - fetch_url
+    skills:
+      # Empty allowed means all skills (except denied) are available
+      required: []
+      allowed: []
+      denied:
+        - dangerous_skill
+    enabled: true
