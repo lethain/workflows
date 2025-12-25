@@ -94,9 +94,7 @@ class Registry:
     def get_workflows_for_input(self, input_type: str) -> list[WorkflowConfig]:
         """Get all workflows that handle a given input type."""
         return [
-            wf
-            for wf in self._workflows.values()
-            if wf.enabled and input_type in wf.input_types
+            wf for wf in self._workflows.values() if wf.enabled and input_type in wf.input_types
         ]
 
     def get_tool(self, name: str) -> Tool | None:

@@ -68,7 +68,11 @@ def load_prompt(path: Path) -> Prompt:
         version=str(frontmatter.get("version", "1.0")),
         workflow=frontmatter.get("workflow"),
         content=body.strip(),
-        metadata={k: v for k, v in frontmatter.items() if k not in ("name", "description", "version", "workflow")},
+        metadata={
+            k: v
+            for k, v in frontmatter.items()
+            if k not in ("name", "description", "version", "workflow")
+        },
         path=str(path),
     )
 

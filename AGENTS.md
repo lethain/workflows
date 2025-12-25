@@ -5,7 +5,8 @@
 **ALWAYS run linting, type checking, and tests before considering any task complete:**
 
 ```bash
-# Required before finishing - ALL THREE must pass
+# Required before finishing - ALL must pass
+ruff format --check src tests
 ruff check src tests
 mypy src
 pytest
@@ -14,10 +15,16 @@ pytest
 Or as a single command:
 
 ```bash
-ruff check src tests && mypy src && pytest
+ruff format --check src tests && ruff check src tests && mypy src && pytest
 ```
 
 If any command fails, fix the issues before finishing.
+
+To auto-fix formatting issues:
+
+```bash
+ruff format src tests
+```
 
 ---
 
@@ -52,7 +59,15 @@ Auto-fix issues:
 ruff check src tests --fix
 ```
 
-Format code:
+## Formatting
+
+Check formatting:
+
+```bash
+ruff format --check src tests
+```
+
+Fix formatting:
 
 ```bash
 ruff format src tests
@@ -125,16 +140,17 @@ workflows/
 
 ```bash
 # ALWAYS run this before finishing any task
-ruff check src tests && mypy src && pytest
+ruff format --check src tests && ruff check src tests && mypy src && pytest
 
-# Format, lint, type check, and test
+# Fix formatting, then lint, type check, and test
 ruff format src tests && ruff check src tests --fix && mypy src && pytest -v
 ```
 
 ## Checklist Before Completing Any Task
 
-1. [ ] Run `ruff check src tests` - all checks must pass
-2. [ ] Run `mypy src` - all type checks must pass
-3. [ ] Run `pytest` - all tests must pass
-4. [ ] If you added new code, add corresponding tests
-5. [ ] If you modified existing code, ensure existing tests still pass
+1. [ ] Run `ruff format --check src tests` - formatting must be correct
+2. [ ] Run `ruff check src tests` - all lint checks must pass
+3. [ ] Run `mypy src` - all type checks must pass
+4. [ ] Run `pytest` - all tests must pass
+5. [ ] If you added new code, add corresponding tests
+6. [ ] If you modified existing code, ensure existing tests still pass

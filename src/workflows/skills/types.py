@@ -82,7 +82,9 @@ class SkillFilter:
 
         return result
 
-    def get_required_skills(self, all_skills: dict[str, SkillProperties]) -> dict[str, SkillProperties]:
+    def get_required_skills(
+        self, all_skills: dict[str, SkillProperties]
+    ) -> dict[str, SkillProperties]:
         """Get skills that are required and should be in system prompt.
 
         Args:

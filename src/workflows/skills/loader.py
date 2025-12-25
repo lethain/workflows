@@ -83,14 +83,20 @@ def validate(path: Path) -> list[ValidationProblem]:
     # Check required fields
     for field in REQUIRED_FIELDS:
         if field not in frontmatter:
-            problems.append(ValidationProblem("error", f"Missing required field: {field}", str(skill_md)))
+            problems.append(
+                ValidationProblem("error", f"Missing required field: {field}", str(skill_md))
+            )
 
     # Warnings for recommended fields
     if not frontmatter.get("version"):
-        problems.append(ValidationProblem("warning", "Missing recommended field: version", str(skill_md)))
+        problems.append(
+            ValidationProblem("warning", "Missing recommended field: version", str(skill_md))
+        )
 
     if not body.strip():
-        problems.append(ValidationProblem("warning", "Skill has no content/instructions", str(skill_md)))
+        problems.append(
+            ValidationProblem("warning", "Skill has no content/instructions", str(skill_md))
+        )
 
     return problems
 

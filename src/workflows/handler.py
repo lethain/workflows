@@ -55,10 +55,12 @@ def handler(event: dict[str, Any], _context: Any) -> dict[str, Any]:
         # Input type detection failed
         return {
             "statusCode": 400,
-            "body": json.dumps({
-                "error": "Invalid input",
-                "message": str(e),
-            }),
+            "body": json.dumps(
+                {
+                    "error": "Invalid input",
+                    "message": str(e),
+                }
+            ),
             "headers": {
                 "Content-Type": "application/json",
             },
@@ -68,10 +70,12 @@ def handler(event: dict[str, Any], _context: Any) -> dict[str, Any]:
         # Unexpected error
         return {
             "statusCode": 500,
-            "body": json.dumps({
-                "error": "Internal error",
-                "message": str(e),
-            }),
+            "body": json.dumps(
+                {
+                    "error": "Internal error",
+                    "message": str(e),
+                }
+            ),
             "headers": {
                 "Content-Type": "application/json",
             },

@@ -42,7 +42,9 @@ class ParameterConstraint:
             return False, msg
 
         if self._compiled_pattern is not None and not self._compiled_pattern.match(str_value):
-            msg = self.error_message or f"Value '{str_value}' does not match pattern '{self.pattern}'"
+            msg = (
+                self.error_message or f"Value '{str_value}' does not match pattern '{self.pattern}'"
+            )
             return False, msg
 
         if self.validator is not None and not self.validator(value):

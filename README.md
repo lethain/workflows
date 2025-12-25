@@ -454,10 +454,10 @@ Quick reference:
 # Install with dev dependencies
 uv sync --all-extras
 
-# Lint, type check, and test (required before any PR)
-ruff check src tests && mypy src && pytest
+# Full CI check (required before any PR)
+ruff format --check src tests && ruff check src tests && mypy src && pytest
 
-# Format
+# Fix formatting
 ruff format src tests
 ```
 
