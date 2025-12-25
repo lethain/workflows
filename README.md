@@ -121,15 +121,14 @@ pytest -k "email"
 
 ## Type Checking
 
-The project includes full type hints and a `py.typed` marker for PEP 561 compliance.
+The project uses strict mypy type checking. Mypy is included in dev dependencies.
 
 ```bash
-# Install mypy (not included in dev dependencies)
-pip install mypy
-
 # Run type checking
 mypy src
 ```
+
+All code must pass mypy with strict settings. Configuration is in `pyproject.toml`.
 
 ## Quick Start
 
@@ -455,12 +454,20 @@ Quick reference:
 # Install with dev dependencies
 uv sync --all-extras
 
-# Lint and test
-ruff check src tests && pytest
+# Lint, type check, and test (required before any PR)
+ruff check src tests && mypy src && pytest
 
 # Format
 ruff format src tests
 ```
+
+## CI
+
+This project uses GitHub Actions for continuous integration. On every push and pull request:
+
+- **Lint**: ruff check and format verification
+- **Type Check**: mypy with strict settings
+- **Test**: pytest on Python 3.11, 3.12, and 3.13
 
 ## License
 

@@ -54,13 +54,14 @@ class SlackInput:
             )
 
         # Handle direct format
-        timestamp = event.get("timestamp")
-        if isinstance(timestamp, str):
-            timestamp = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
-        elif isinstance(timestamp, (int, float)):
-            timestamp = datetime.fromtimestamp(timestamp, tz=UTC)
-        elif timestamp is None:
-            timestamp = datetime.now(UTC)
+        raw_timestamp = event.get("timestamp")
+        parsed_timestamp: datetime
+        if isinstance(raw_timestamp, str):
+            parsed_timestamp = datetime.fromisoformat(raw_timestamp.replace("Z", "+00:00"))
+        elif isinstance(raw_timestamp, (int, float)):
+            parsed_timestamp = datetime.fromtimestamp(raw_timestamp, tz=UTC)
+        else:
+            parsed_timestamp = datetime.now(UTC)
 
         return cls(
             user_id=event.get("user_id", ""),
@@ -68,7 +69,7 @@ class SlackInput:
             text=event.get("text", ""),
             team_id=event.get("team_id", ""),
             thread_ts=event.get("thread_ts"),
-            timestamp=timestamp,
+            timestamp=parsed_timestamp,
             event_type=event.get("event_type", "message"),
             raw=event,
         )

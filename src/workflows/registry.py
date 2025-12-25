@@ -30,7 +30,8 @@ class WorkflowConfig:
     def handler(self) -> Callable[..., Any]:
         """Dynamically load and return the workflow handler function."""
         mod = importlib.import_module(self.module)
-        return getattr(mod, self.function)
+        func: Callable[..., Any] = getattr(mod, self.function)
+        return func
 
 
 class Registry:

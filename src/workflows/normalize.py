@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, TypeAlias
 
 from .inputs import EmailInput, NormalizedInput, SlackInput, WebhookInput
 
+# Type alias for input class types
+InputClass: TypeAlias = type[EmailInput] | type[SlackInput] | type[WebhookInput]
+
 # Ordered list of input types to check (most specific first)
-INPUT_TYPES = [
+INPUT_TYPES: list[InputClass] = [
     EmailInput,
     SlackInput,
     WebhookInput,  # Webhook is most generic, check last
@@ -60,7 +63,7 @@ def normalize_with_type(event: dict[str, Any], input_type: str) -> NormalizedInp
     Raises:
         ValueError: If input_type is not recognized
     """
-    type_map = {
+    type_map: dict[str, InputClass] = {
         "email": EmailInput,
         "slack": SlackInput,
         "webhook": WebhookInput,

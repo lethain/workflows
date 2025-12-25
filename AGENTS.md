@@ -2,14 +2,22 @@
 
 ## IMPORTANT: Before Finishing Any Task
 
-**ALWAYS run linting and tests before considering any task complete:**
+**ALWAYS run linting, type checking, and tests before considering any task complete:**
 
 ```bash
-# Required before finishing
-ruff check src tests && pytest
+# Required before finishing - ALL THREE must pass
+ruff check src tests
+mypy src
+pytest
 ```
 
-If either command fails, fix the issues before finishing.
+Or as a single command:
+
+```bash
+ruff check src tests && mypy src && pytest
+```
+
+If any command fails, fix the issues before finishing.
 
 ---
 
@@ -52,14 +60,13 @@ ruff format src tests
 
 ## Type Checking
 
-This project uses type hints throughout. The `py.typed` marker is included for PEP 561 compliance.
-
-To check types with mypy (if installed separately):
+This project uses strict mypy type checking. **Type checking is required.**
 
 ```bash
-pip install mypy
 mypy src
 ```
+
+All code must pass mypy with no errors. The project is configured with strict settings in `pyproject.toml`.
 
 ## Testing
 
@@ -118,18 +125,16 @@ workflows/
 
 ```bash
 # ALWAYS run this before finishing any task
-ruff check src tests && pytest
+ruff check src tests && mypy src && pytest
 
-# Format and lint
-ruff format src tests && ruff check src tests --fix
-
-# Full validation cycle
-ruff format src tests && ruff check src tests && pytest -v
+# Format, lint, type check, and test
+ruff format src tests && ruff check src tests --fix && mypy src && pytest -v
 ```
 
 ## Checklist Before Completing Any Task
 
 1. [ ] Run `ruff check src tests` - all checks must pass
-2. [ ] Run `pytest` - all tests must pass
-3. [ ] If you added new code, add corresponding tests
-4. [ ] If you modified existing code, ensure existing tests still pass
+2. [ ] Run `mypy src` - all type checks must pass
+3. [ ] Run `pytest` - all tests must pass
+4. [ ] If you added new code, add corresponding tests
+5. [ ] If you modified existing code, ensure existing tests still pass
